@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- debug（非必须）属性：true表示输出logback内部的日志信息（不影响配置和级别） ;
+     scan（非必须）属性：默认为false，true表示扫描配置文件的变化并自动重新配置，默认每隔1分钟扫描一次；
+     scanPeriod（非必须）属性：搭配scan属性使用，设置扫描的间隔时间
+-->
+<configuration debug="false" scan="true" scanPeriod="1 seconds">
+    <!-- 用于指定logger上下文名称，默认为default -->
+    <contextName>logback</contextName>
+    <!-- 设置变量FILE_PATH，用于指定名为FILE的appender的目的文件存放的目录 -->
+    <property name="log.path" value="/Users/xujingshui/java_web/springboot/log/logback.log" />
+
+    <!--    输出到控制台-->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- <filter class="com.example.logback.filter.MyFilter" /> -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <!-- 输出级别-->
+            <level>ERROR</level>
+        </filter>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} - %msg%n
+            </pattern>
+            <!-- 设置输出字符集-->
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    <!-- 日志输出到文件-->
+    <appender name="file"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.path}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}.%d{yyyy-MM-dd}.zip</fileNamePattern>
+            <maxHistory>30</maxHistory>//天
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%date %level [%thread] %logger{36} [%file : %line] %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+    <root level="debug">
+        <appender-ref ref="console" />
+        <appender-ref ref="file" />
+    </root>
+
+    <!--单独设置某个包下的日志-->
+    <!-- name:指定logger名称；level：指定logger的分配级别；additivity(非必须，默认为true)：设置appender叠加性 -->
+    <logger name="com.example.logback" level="warn" />
+<!--    <logger name="demo2" level="debug">-->
+<!--        <appender-ref ref="rollingFile"></appender-ref>-->
+<!--    </logger>-->
+</configuration>

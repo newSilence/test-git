@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/mybatis_study?characterEncoding=utf-8&serverTimeZone=UTC
+    username: root
+    password: sjs20116486
+    driver-class-name: com.mysql.cj.jdbc.Driver
+mybatis:
+  mapper-locations: classpath:mybatis-config/mapper/*
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+logging:
+  file:
+    name:
+#  mapper-locations: classpath:mybatis-config/mapper/*Mapper.xml
