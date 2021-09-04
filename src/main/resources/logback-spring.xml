@@ -23,7 +23,7 @@
             <charset>UTF-8</charset>
         </encoder>
     </appender>
-    <!-- 日志输出到文件-->
+    <!-- 日志输出到文件123-->
     <appender name="file"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${log.path}</file>
